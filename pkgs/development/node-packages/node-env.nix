@@ -4,7 +4,8 @@
 
 let
   # Workaround to cope with utillinux in Nixpkgs 20.09 and util-linux in Nixpkgs master
-  utillinux = if pkgs ? utillinux then pkgs.utillinux else pkgs.util-linux;
+  utillinux = if (pkgs ? utillinux) && (builtins.tryEval pkgs.utillinux).success then pkgs.utillinux else pkgs.util-linux;
+  
 
   python = if nodejs ? python then nodejs.python else python2;
 
